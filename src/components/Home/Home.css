@@ -1103,3 +1103,416 @@ button.mini-cta {
   -webkit-appearance: none;
   appearance: none;
 }
+
+/* ===========================================================
+   MOBILE REFINEMENTS (≤ 480px, ≤ 380px)
+=========================================================== */
+
+@media (max-width: 480px) {
+  /* Hero - better spacing and content distribution */
+  .hero {
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero-content {
+    padding: calc(var(--header-height-mobile, 3.75rem) + 1rem) 1.25rem 2rem;
+    justify-content: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .hero-heading {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .hero-heading br {
+    display: block;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.95rem;
+    max-width: 22rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.7;
+    padding: 0 0.5rem;
+  }
+  
+  .cta {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    border-radius: 999px;
+    margin: 0 auto;
+  }
+
+  /* Hero stamp - adjust position */
+  .hero-stamp {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    opacity: 0.6;
+    transform: scale(0.7);
+    transform-origin: bottom right;
+  }
+
+  /* Story section */
+  .story {
+    padding: 4rem 1.25rem;
+    gap: 2.5rem;
+  }
+  
+  .story-grid {
+    gap: 1.5rem;
+  }
+  
+  .story-copy h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+  
+  .story-image img {
+    min-height: 240px;
+    border-radius: 0.75rem;
+  }
+  
+  .stat-row {
+    gap: 1.5rem 2rem;
+    margin-top: 1.8rem;
+  }
+  
+  .stat strong {
+    font-size: 1.5rem;
+  }
+  
+  .stat span {
+    font-size: 0.6rem;
+  }
+
+  /* Section heads (shared by dairy-case, process, testimonials) */
+  .section-head {
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+  
+  .section-head h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+  
+  .section-head .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Dairy case */
+  .dairy-case {
+    padding: 4rem 1.25rem 4.5rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .product-image {
+    height: 140px;
+  }
+  
+  .product-body {
+    padding: 1rem 1rem 1.2rem;
+  }
+  
+  .product-body h3 {
+    font-size: 1rem;
+  }
+  
+  .product-body p {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .product-foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .price {
+    font-size: 0.7rem;
+    text-align: center;
+  }
+  
+  .mini-cta {
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.65rem;
+  }
+
+  /* Process */
+  .process {
+    padding: 4rem 1.25rem;
+  }
+  
+  .process .section-head.light h2 {
+    font-size: 1.8rem;
+  }
+  
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 0.25rem;
+  }
+  
+  .step {
+    padding: 1.5rem 1.25rem;
+    border-radius: 0.75rem;
+  }
+  
+  .step-number {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+  
+  .step h3 {
+    font-size: 1.1rem;
+    margin: 0.4rem 0 0.5rem;
+  }
+  
+  .step p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  /* Values */
+  .values {
+    padding: 4rem 1.25rem;
+  }
+  
+  .values-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  
+  .value-card {
+    padding: 0.25rem;
+  }
+  
+  .value-card svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 0.6rem;
+  }
+  
+  .value-card h4 {
+    font-size: 0.95rem;
+  }
+  
+  .value-card p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    padding: 4rem 1.25rem;
+  }
+  
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+  
+  .quote {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  
+  .stars {
+    gap: 0.15rem;
+  }
+  
+  .stars svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Signup */
+  .signup-band {
+    padding: 4rem 1.25rem;
+  }
+  
+  .signup-inner {
+    gap: 1rem;
+  }
+  
+  .signup-stamp {
+    transform: scale(0.8);
+  }
+  
+  .signup-copy h2 {
+    font-size: 1.8rem;
+  }
+  
+  .signup-copy p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0 0.5rem;
+  }
+  
+  .signup {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  
+  .signup input {
+    min-width: 0;
+    width: 100%;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .signup .mini-cta {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Pour dividers */
+  .pour-divider svg {
+    height: 40px;
+  }
+
+  /* Creamery stamp adjustments */
+  .stamp {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 380px) {
+  /* Hero - extra small screens */
+  .hero-heading {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.85rem;
+    max-width: 18rem;
+  }
+  
+  .cta {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  /* Story */
+  .story-copy h2 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-row {
+    gap: 1.2rem 1.5rem;
+  }
+  
+  .stat strong {
+    font-size: 1.3rem;
+  }
+
+  /* Products - single column on very small screens */
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .product-image {
+    height: 180px;
+  }
+
+  /* Values - single column */
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Section headings */
+  .section-head h2 {
+    font-size: 1.5rem;
+  }
+  
+  .process .section-head.light h2 {
+    font-size: 1.5rem;
+  }
+  
+  .signup-copy h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Ensure the hero background image covers properly */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%; /* Focus more on the interesting part of the image */
+}
+
+@media (max-width: 480px) {
+  .hero-media img {
+    object-position: center 20%; /* Adjust for mobile */
+  }
+}
+
+/* Hero scrim - better gradient for readability */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 42, 32, 0.85) 0%,
+    rgba(20, 42, 32, 0.5) 30%,
+    rgba(20, 42, 32, 0.6) 60%,
+    rgba(20, 42, 32, 0.9) 100%
+  );
+}
+
+@media (max-width: 480px) {
+  .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(20, 42, 32, 0.9) 0%,
+      rgba(20, 42, 32, 0.55) 25%,
+      rgba(20, 42, 32, 0.65) 55%,
+      rgba(20, 42, 32, 0.95) 100%
+    );
+  }
+}

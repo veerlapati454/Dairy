@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Reveal from "../Reveal";
 import PourDivider from "../PourDivider";
+import './Standards.css'
 
 
 const values = [

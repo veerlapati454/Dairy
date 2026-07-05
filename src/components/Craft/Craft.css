@@ -10,7 +10,7 @@
 
 .process {
   background: var(--pasture);
-  padding: 5.5rem 1.5rem;
+  padding: 7rem 1.5rem 5.5rem; /* Increased top padding from 5.5rem to 7rem */
   /* Offsets the section below your fixed nav so #craft anchor
      links / scroll-into-view don't tuck the heading under it.
      Adjust this value to match your actual nav height. */
@@ -21,7 +21,7 @@
 }
 @media (min-width: 768px) {
   .process {
-    padding: 7rem 3rem;
+    padding: 8rem 3rem 7rem; /* Increased top padding for desktop too */
   }
 }
 
@@ -29,6 +29,7 @@
   max-width: 1180px;
   margin: 0 auto 3rem;
   text-align: center;
+  padding-top: 1rem; /* Added extra padding at top */
 }
 
 .section-head.light .eyebrow {
@@ -503,11 +504,17 @@
 }
 
 /* ---------------------------------------------------------
-   MOBILE (≤ 480px)
+   MOBILE (≤ 480px) - Updated with more top padding
 --------------------------------------------------------- */
 @media (max-width: 480px) {
   .process {
-    padding: 3.5rem 1rem;
+    padding: 7rem 1rem 3.5rem; /* Increased top padding significantly */
+    scroll-margin-top: 120px; /* Increased for mobile */
+  }
+
+  .section-head.light {
+    padding-top: 1.5rem; /* Extra padding on mobile */
+    margin-bottom: 2rem;
   }
 
   .steps-grid {
@@ -575,6 +582,15 @@
     font-size: 1.5rem;
   }
 
+  .herd-gallery {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .herd-photo img {
+    aspect-ratio: 4 / 3;
+  }
+
   .farmer-quote {
     margin-top: 3rem;
   }
@@ -585,6 +601,10 @@
 }
 
 @media (max-width: 380px) {
+  .process {
+    padding: 6.5rem 0.75rem 3rem;
+  }
+
   .step-image {
     height: 140px;
   }
@@ -597,6 +617,10 @@
 
   .philosophy-stats {
     gap: 1rem;
+  }
+
+  .section-head.light h2 {
+    font-size: 1.6rem;
   }
 }
 
@@ -630,6 +654,7 @@
     opacity: 1;
   }
 }
+
 /* Make clickable elements show pointer cursor */
 .step-image {
   cursor: pointer;

@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
-import logo from "../../assets/stackly_logo.webp"
+import logo from "../../assets/stackly_logo.webp";
 
 /* ---------------------------------------------------------
    Header — fixed transparent nav bar that sits on top of
    the hero image. Manages its own mobile-menu state.
-
-   LOGO: swap the src below for your own logo file.
-   Recommended size: roughly 140x40px (or similar aspect).
 --------------------------------------------------------- */
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLightBackground, setIsLightBackground] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   
   const navLinks = [
     { name: "Home", path: "/" },
@@ -30,9 +29,48 @@ export default function Header() {
     setMenuOpen(false);
   };
 
+  // Check background color of the section under the header
+  useEffect(() => {
+    const checkBackground = () => {
+      const header = document.querySelector('.site-header');
+      if (!header) return;
+
+      // Get the element right below the header
+      const scrollY = window.scrollY;
+      const headerHeight = header.offsetHeight;
+      
+      // Get the element at the top of the viewport (below header)
+      const element = document.elementFromPoint(
+        window.innerWidth / 2,
+        headerHeight + 10
+      );
+
+      if (element) {
+        const bgColor = window.getComputedStyle(element).backgroundColor;
+        const rgb = bgColor.match(/\d+/g);
+        
+        if (rgb) {
+          const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+          // If brightness is high (> 200), it's a light background
+          setIsLightBackground(brightness > 200);
+        }
+      }
+    };
+
+    // Check on mount and scroll
+    checkBackground();
+    window.addEventListener('scroll', checkBackground);
+    window.addEventListener('resize', checkBackground);
+
+    return () => {
+      window.removeEventListener('scroll', checkBackground);
+      window.removeEventListener('resize', checkBackground);
+    };
+  }, [location.pathname]);
+
   return (
     <>
-      <nav className="site-header">
+      <nav className={`site-header ${isLightBackground ? 'light-background' : ''}`}>
         <div 
           className="logo-slot" 
           onClick={() => handleNavigation("/")}

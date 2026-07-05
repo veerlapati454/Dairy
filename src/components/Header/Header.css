@@ -12,7 +12,14 @@
   --glass-border: rgba(255, 255, 255, 0.28);
   --glass-highlight: rgba(255, 255, 255, 0.45);
   --nav-text: #f7f6f2;
-  --nav-text-hover: #f5a623; /* matches the accent orange in the design */
+  --nav-text-hover: #f5a623;
+  --header-bg: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.06) 60%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    var(--glass-tint);
 }
 
 /* The bar itself is the glass surface — this is what fixes the
@@ -33,20 +40,43 @@
   padding: 0 1.4rem;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(255, 255, 255, 0.06) 60%,
-      rgba(255, 255, 255, 0.02) 100%
-    ),
-    var(--glass-tint);
+  background: var(--header-bg);
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border-bottom: 1px solid var(--glass-border);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.18),
     inset 0 1px 0 var(--glass-highlight);
+  
+  /* Default light text for dark backgrounds */
+  color: var(--nav-text);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* When header is on light backgrounds, add a dark overlay */
+.site-header.light-background {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  color: #1a1a1a;
+}
+
+.site-header.light-background .nav-links .nav-link-btn {
+  color: #1a1a1a;
+  text-shadow: none;
+}
+
+.site-header.light-background .nav-links .nav-link-btn:hover,
+.site-header.light-background .nav-links .nav-link-btn:focus-visible {
+  color: var(--nav-text-hover);
+  text-shadow: none;
+}
+
+.site-header.light-background .hamburger {
+  color: #1a1a1a;
+  filter: none;
 }
 
 @media (min-width: 768px) {
@@ -66,13 +96,22 @@
   padding: 0;
 }
 .logo-slot img {
-  height: 32px;
+  height: 48px; /* Increased from 32px to 48px for mobile */
   width: auto;
   border-radius: 0.35rem;
   pointer-events: none;
-  /* keeps the logo readable if it's a dark mark on a bright hero */
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+  /* Force logo to be black at all times */
+  filter: brightness(0) invert(0) !important;
+  -webkit-filter: brightness(0) invert(0) !important;
 }
+
+/* Mobile-specific logo size */
+@media (max-width: 480px) {
+  .logo-slot img {
+    height: 56px; /* Even larger on very small screens */
+  }
+}
+
 @media (min-width: 768px) {
   .logo-slot img {
     height: 84px;
@@ -93,8 +132,6 @@
 }
 
 .nav-links .nav-link-btn {
-  /* fixed light color + subtle shadow instead of pure black —
-     this is the actual fix for links vanishing on dark sections */
   color: var(--nav-text);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   text-transform: uppercase;
@@ -129,6 +166,7 @@
   cursor: pointer;
   padding: 0.5rem;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  transition: color 0.3s ease, filter 0.3s ease;
 }
 @media (min-width: 768px) {
   .hamburger {
