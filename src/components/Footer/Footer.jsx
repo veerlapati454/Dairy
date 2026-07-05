@@ -1,236 +1,265 @@
+// Footer.jsx - Updated with useNavigate for navigation
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Milk } from "lucide-react";
 import "./Footer.css";
-import logo from "../../assets/stackly_logo.webp"
+import logo from "../../assets/stackly_logo.webp";
 
-/* ============================================================
-   Earthbound — Site Footer
-   Matches the liquid-glass design system from EarthboundLanding.
-   ============================================================ */
+/* ---------------------------------------------------------
+   Lucide dropped several brand/trademark icons across versions
+   (Facebook, Twitter, Linkedin, Youtube), so social icons are
+   defined here as small inline SVGs instead — no dependency risk.
+--------------------------------------------------------- */
+const IconInstagram = ({ size = 18, strokeWidth = 1.6, ...rest }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    {...rest}
+  >
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
 
-const LOGO_SRC = logo;
+const IconFacebook = ({ size = 18, strokeWidth = 1.6, ...rest }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    {...rest}
+  >
+    <path d="M14 9h3V5.6c-.6-.08-1.7-.2-2.9-.2C11.5 5.4 10 7 10 9.6V12H7v3.6h3V22h3.6v-6.4H16.5L17 12h-3.4V9.9C13.6 9.3 13.8 9 14 9z" />
+  </svg>
+);
 
-function ArrowUpRight({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7 17L17 7" />
-      <path d="M7 7h10v10" />
-    </svg>
-  );
-}
+const IconTwitter = ({ size = 18, strokeWidth = 1.6, ...rest }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    {...rest}
+  >
+    <path d="M4 4l7.2 9.4L4.4 20H7l5-5.6 4 5.6h4l-7.5-9.9L19.7 4H17l-4.6 5.1L8.4 4H4z" />
+  </svg>
+);
 
-// Social Media Icons
-function InstagramIcon({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
+const IconYoutube = ({ size = 18, strokeWidth = 1.6, ...rest }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    {...rest}
+  >
+    <rect x="3" y="6" width="18" height="12" rx="3" />
+    <path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none" />
+  </svg>
+);
 
-function TwitterIcon({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-    </svg>
-  );
-}
+const IconLinkedin = ({ size = 18, strokeWidth = 1.6, ...rest }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    {...rest}
+  >
+    <rect x="3" y="3" width="18" height="18" rx="3" />
+    <line x1="7.5" y1="10" x2="7.5" y2="17" />
+    <circle cx="7.5" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
+    <path d="M11.5 17v-4.2c0-1.5 1-2.4 2.3-2.4 1.2 0 2.2.8 2.2 2.4V17" />
+    <line x1="11.5" y1="10" x2="11.5" y2="17" />
+  </svg>
+);
 
-function FacebookIcon({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
+const LOGO_PLACEHOLDER = logo;
 
-function YouTubeIcon({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
-      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
-    </svg>
-  );
-}
-
-const QUICK_LINKS = [
-  { label: "Home", path: "/" },
-  { label: "Our Fields", path: "/fields" },
-  { label: "Harvest", path: "/harvest" },
-  { label: "Practices", path: "/practices" },
-  { label: "Visit the Farm", path: "/visit" },
-  { label: "Join the Co-op", path: "/join" },
-];
-
-const SOCIAL_LINKS = [
-  { icon: InstagramIcon, label: "Instagram", path: "/404" },
-  { icon: TwitterIcon, label: "Twitter", path: "/404" },
-  { icon: FacebookIcon, label: "Facebook", path: "/404" },
-  { icon: YouTubeIcon, label: "YouTube", path: "/404" },
-];
-
-export default function Footer({ logoSrc = LOGO_SRC, logoAlt = "Stackly" }) {
+export default function Footer() {
   const navigate = useNavigate();
-  const year = new Date().getFullYear();
 
-  const handleNavigate = (path) => {
+  const handleNavigation = (path) => {
     navigate(path);
+    // Scroll to top when navigating
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSocialClick = (url) => {
+    // For social links, open in new tab
+    if (url && url.startsWith('http')) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      navigate(url);
+    }
+  };
+
+  const shopLinks = [
+    { label: "Whole Milk", path: "/products" },
+    { label: "Aged Cheddar", path: "/products" },
+    { label: "Farmhouse Yogurt", path: "/products" },
+    { label: "Cultured Butter", path: "/products" },
+    { label: "Grass-Fed Ghee", path: "/products" },
+    { label: "Fresh Paneer", path: "/products" },
+  ];
+
+  const quickLinks = [
+    { label: "Home", path: "/" },
+    { label: "Pasture", path: "/Pasture" },
+    { label: "Dairy Case", path: "/dairy-case" },
+    { label: "Craft", path: "/Craft" },
+    { label: "Standards", path: "/Standards" },
+  ];
+
+  const socialLinks = [
+    { label: "Instagram", url: "https://instagram.com", Icon: IconInstagram },
+    { label: "Facebook", url: "https://facebook.com", Icon: IconFacebook },
+    { label: "Twitter", url: "https://twitter.com", Icon: IconTwitter },
+    { label: "YouTube", url: "https://youtube.com", Icon: IconYoutube },
+    { label: "LinkedIn", url: "https://linkedin.com", Icon: IconLinkedin },
+  ];
+
   return (
-    <footer className="ef-footer">
-      <div className="ef-top liquid-glass">
-        <div className="ef-brand">
-          {/* Logo - navigates to "/" */}
-          <div 
-            className="ef-logo liquid-glass" 
-            onClick={() => handleNavigate('/')}
-            style={{ cursor: 'pointer' }}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleNavigate('/')}
+    <footer className="site-footer">
+      <div className="footer-inner">
+        {/* ===== Brand column ===== */}
+        <div className="footer-brand">
+          <a 
+            href="/" 
+            className="footer-logo-slot" 
+            aria-label="Dairy Store home"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavigation("/");
+            }}
           >
-            {logoSrc ? (
-              <img src={logoSrc} alt={logoAlt} className="ef-logo-img" />
-            ) : (
-              <span className="ef-logo-placeholder font-heading">e</span>
-            )}
-          </div>
-          <p className="ef-brand-text font-body">
-            Grown from soil, not from shortcuts. A small farm, farmed slowly,
-            shared with the valley around it.
+            <img
+              src={LOGO_PLACEHOLDER}
+              alt="Dairy Store logo"
+              className="footer-logo"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+                e.currentTarget.nextSibling.style.display = "inline-flex";
+              }}
+            />
+            <span className="footer-logo-fallback" style={{ display: "none" }}>
+              <Milk size={28} strokeWidth={1.4} />
+              <span>Clover &amp; Churn</span>
+            </span>
+          </a>
+          <p className="footer-tagline">
+            Small-batch milk, butter, and cheese from four family pastures,
+            chilled and bottled within a day of milking.
           </p>
-          <button 
-            className="ef-cta font-body"
-            onClick={() => navigate('/404')}
-          >
-            Join the Co-op
-            <ArrowUpRight />
-          </button>
+
+          <div className="footer-social">
+            {socialLinks.map(({ label, url, Icon }) => (
+              <a
+                key={label}
+                href={url}
+                className="footer-social-icon"
+                aria-label={label}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSocialClick(url);
+                }}
+              >
+                <Icon size={18} strokeWidth={1.6} />
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Quick Links & Social */}
-        <div className="ef-columns">
-          <div className="ef-column">
-            <div className="ef-column-heading font-body">Quick Links</div>
-            <ul className="ef-column-list">
-              {QUICK_LINKS.map((link) => (
+        {/* ===== Link columns ===== */}
+        <div className="footer-links">
+          <div className="footer-col">
+            <h4>Shop</h4>
+            <ul>
+              {shopLinks.map((link) => (
                 <li key={link.label}>
-                  <button 
-                    className="ef-column-link font-body"
-                    onClick={() => handleNavigate(link.path)}
+                  <a 
+                    href={link.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(link.path);
+                    }}
                   >
                     {link.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="ef-column">
-            <div className="ef-column-heading font-body">Visit</div>
-            <p className="ef-address font-body">
-              Nagole
-              <br />
-              Hyderabad, India
-            </p>
-            <p className="ef-address font-body">
-              Stackly@organic.com
-              <br />
-              (+91) 7891528801
-            </p>
-            
-            {/* Social Media Icons */}
-            <div className="ef-social">
-              <div className="ef-column-heading font-body">Follow Us</div>
-              <div className="ef-social-icons">
-                {SOCIAL_LINKS.map((social) => (
-                  <button
-                    key={social.label}
-                    className="ef-social-icon"
-                    onClick={() => handleNavigate(social.path)}
-                    aria-label={social.label}
-                    title={social.label}
+          <div className="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <a 
+                    href={link.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(link.path);
+                    }}
                   >
-                    <social.icon />
-                  </button>
-                ))}
-              </div>
-            </div>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="footer-col footer-address">
+            <h4>Address</h4>
+            <address>
+              Financial District
+              <br />
+              Wipro Road
+              <br />
+              Hyderabad, 500070
+              <br />
+              <a 
+                href="tel:09266826456"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "tel:09266826456";
+                }}
+              >
+                9266826456
+              </a>
+              <br />
+              <a 
+                href="mailto:hello@thestackly.com"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "mailto:hello@thestackly.com";
+                }}
+              >
+                hello@thestackly.com
+              </a>
+            </address>
           </div>
         </div>
       </div>
 
-      <div className="ef-bottom">
-        <span className="ef-copyright font-body">
-          © {year} Earthbound Farm. All rights reserved.
-        </span>
-        <div className="ef-legal">
-          <button 
-            className="ef-legal-link font-body"
-            onClick={() => handleNavigate('/privacy')}
-          >
-            Privacy
-          </button>
-          <button 
-            className="ef-legal-link font-body"
-            onClick={() => handleNavigate('/terms')}
-          >
-            Terms
-          </button>
-        </div>
+      {/* ===== Bottom bar ===== */}
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Stackly All rights reserved.</span>
+        <span className="footer-bottom-note">Poured fresh, every morning.</span>
       </div>
     </footer>
   );

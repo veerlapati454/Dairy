@@ -1,150 +1,95 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
-import logo from "../../assets/stackly_logo.webp"; // Replace with your dairy logo
+import logo from "../../assets/stackly_logo.webp"
 
-/* ============================================================
-   Dairy Products Store — Header
-   ============================================================ */
+/* ---------------------------------------------------------
+   Header — fixed transparent nav bar that sits on top of
+   the hero image. Manages its own mobile-menu state.
 
-function ArrowUpRight() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M7 17L17 7" />
-      <path d="M7 7h10v10" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <path d="M3 6h18M3 12h18M3 18h18" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <path d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
-
+   LOGO: swap the src below for your own logo file.
+   Recommended size: roughly 140x40px (or similar aspect).
+--------------------------------------------------------- */
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
-
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  
   const navLinks = [
-    { name: "Home",           path: "/" },
-    { name: "Our Dairy",      path: "/dairy" },
-    { name: "Products",       path: "/products" },
-    { name: "Farm Life",      path: "/farm" },
-    { name: "Visit Us",       path: "/visit" },
-    
+    { name: "Home", path: "/" },
+    { name: "Pasture", path: "/pasture" },
+    { name: "Dairy Case", path: "/dairy-case" },
+    { name: "Craft", path: "/craft" },
+    { name: "Standards", path: "/standards" },
+    { name: "Join", path: "/login" },
   ];
 
-  const closeMenu = () => setIsMenuOpen(false);
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-
-  /* Lock body scroll while menu is open */
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isMenuOpen]);
-
-  /* Close on Escape key */
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") closeMenu(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  const handleNavigation = (path) => {
+    navigate(path);
+    setMenuOpen(false);
+  };
 
   return (
     <>
-      {/* ── Main header bar ── */}
-      <header className="eh-header">
-
-        {/* Logo — uses your imported logo */}
-        <Link to="/" className="eh-logo-wrapper" aria-label="Home">
-          <div className="eh-logo-container">
-            <img src={logo} alt="Dairy Store" className="eh-logo-img" />
-          </div>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="eh-nav-links" aria-label="Main navigation">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className={`eh-nav-link${location.pathname === link.path ? " eh-nav-link--active" : ""}`}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <Link to="/shop" className="eh-nav-cta">
-            Shop Now <ArrowUpRight />
-          </Link>
-        </nav>
-
-        {/* Hamburger button — hidden on desktop via CSS */}
-        <button
-          className="eh-menu-btn"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-nav"
-          onClick={toggleMenu}
+      <nav className="site-header">
+        <div 
+          className="logo-slot" 
+          onClick={() => handleNavigation("/")}
+          style={{ cursor: "pointer" }}
         >
-          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-        </button>
-      </header>
-
-      {/* ── Dim overlay — click anywhere to close ── */}
-      <div
-        className={`eh-mobile-overlay${isMenuOpen ? " eh-mobile-overlay--open" : ""}`}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
-
-      {/* ── Slide-in mobile menu ── */}
-      <nav
-        id="mobile-nav"
-        className={`eh-mobile-menu${isMenuOpen ? " eh-mobile-menu--open" : ""}`}
-        aria-label="Mobile navigation"
-        aria-hidden={!isMenuOpen}
-      >
-        <div className="eh-mobile-menu-header">
-          <span className="eh-mobile-menu-title">Menu</span>
-          <button
-            className="eh-mobile-close-btn"
-            onClick={closeMenu}
-            aria-label="Close menu"
-          >
-            <CloseIcon />
-          </button>
+          <img
+            src={logo}
+            alt="Logo placeholder — replace with your own"
+          />
         </div>
 
-        <div className="eh-mobile-menu-links">
+        <ul className="nav-links">
           {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              className={`eh-mobile-link${location.pathname === link.path ? " eh-mobile-link--active" : ""}`}
-              onClick={closeMenu}   /* auto-close on link tap */
-            >
-              {link.name}
-            </Link>
+            <li key={link.name}>
+              <button 
+                className="nav-link-btn"
+                onClick={() => handleNavigation(link.path)}
+              >
+                {link.name}
+              </button>
+            </li>
           ))}
-          <Link to="/shop" className="eh-mobile-cta" onClick={closeMenu}>
-            Shop Now <ArrowUpRight />
-          </Link>
-        </div>
+        </ul>
+
+        <button
+          className="hamburger"
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </nav>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="mobile-menu-glass"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            {navLinks.map((link, i) => (
+              <motion.button
+                key={link.name}
+                className="mobile-nav-btn"
+                onClick={() => handleNavigation(link.path)}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 + i * 0.06 }}
+              >
+                {link.name}
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
